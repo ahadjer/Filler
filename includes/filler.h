@@ -2,6 +2,7 @@
 # define FILLLER_H
 
 #include "../libft/includes/libft.h"
+#include <stdio.h>
 
 typedef	struct		s_flag
 {
@@ -25,11 +26,14 @@ typedef struct      s_env
 
 }                   t_env;
 
-void                get_player(t_env *env, char *line);
-void                get_map_size(t_env *env, char *line);
-void                get_map(t_env *env, char *line);
-void                get_piece_size(t_env *env, char *line);
-void                get_piece(t_env *env, char *line);
+char                *get_player(t_env *env, char *line);
+char                *get_map_size(t_env *env, char *line);
+char                *get_map(t_env *env, char *line);
+char                *get_piece_size(t_env *env, char *line);
+char                *get_piece(t_env *env, char *line);
 void                solver(t_env *env);
+void                check_score (t_env *env, int x, int y);
+void                calculate_score(t_env *env);
+void                put_piece(t_env *env);
 
 #endif

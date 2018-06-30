@@ -1,5 +1,6 @@
-seed = 2607
-O: error on input
-players/carli.filler won
+seed = 8326
+X: error on input
+../ahadjer.filler: Segfault at 0
+players/abanlin.filler won
 Score:
-0AGAINST160
+138AGAINST0

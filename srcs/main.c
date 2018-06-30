@@ -13,18 +13,18 @@
 #include "../includes/filler.h"
 #include <stdio.h>
 
-void	get_player(t_env *env, char *line)
+char	*get_player(t_env *env, char *line)
 {
 	get_next_line(0, &line);
 	env->player = ft_strstr(line, "exec p1") ? 'O' : 'X';
+	env->enemi = ft_strstr(line, "exec p1") ? 'X' : 'O'; 
 	dprintf(2, "%s\n", line);
 	dprintf(2, "player = %c\n", env->player);
-	//dprintf(2, "enemi = %c\n", env->enemi);
-
+	dprintf(2, "enemi = %c\n", env->enemi);
+	return (line);
 }
 
-
-void	get_map_size(t_env *env, char *line)
+char	*get_map_size(t_env *env, char *line)
 {
 	int		i;
 	char	**w;
@@ -39,6 +39,7 @@ void	get_map_size(t_env *env, char *line)
 	env->map_x = ft_atoi(w[2]);
 	env->map_y = ft_atoi(w[1]);
 	dprintf(2, "mapx: %d\nmapY %d\n", env->map_x, env->map_y);
+	return (line);
 }
 
 void	init_map(t_env *env)
@@ -56,13 +57,11 @@ void	init_map(t_env *env)
 	}
 }
 
-
-void	get_map(t_env *env, char *line)
+char	*get_map(t_env *env, char *line)
 {
 	int		x;
 	int		y;
 
-	dprintf(2, "SEGV 1\n");
 	get_next_line(0, &line);
 	y = 0;
 	while (!ft_strstr(line, "000 "))
@@ -79,8 +78,32 @@ void	get_map(t_env *env, char *line)
 		y++;
 		get_next_line(0, &line);
 	}
+	return (line);
+}
 
-	dprintf(2, "SEGV 2\n");
+char	*get_piece_size(t_env *env, char *line)
+{
+	int		i;
+	char	**p;
+
+	
+	line = 0;
+	if (!ft_strstr(line, "Piece "))
+	{
+		dprintf(2, "fuck %s\n", line);
+	
+		get_next_line(0, &line);
+	}
+	dprintf(2, "hello\n");
+	dprintf(2, "pouet %s\n", line);
+		
+	i = ft_strlen(line);
+	line[i - 1] = '\0';
+	p = ft_strsplit(line, ' ');
+	env->piece_x = ft_atoi(p[2]);
+	env->piece_y = ft_atoi(p[1]);
+	dprintf(2, "p_x : %d\np_y : %d\n", env->piece_x, env->piece_y);
+	return (line);
 }
 
 void	init_piece(t_env *env)
@@ -90,7 +113,7 @@ void	init_piece(t_env *env)
 	i = 0;
 	if (!(env->piece = (char **)ft_memalloc(sizeof(char *) * env->piece_x)))
 		exit(1);
-	while (i < env->piece_y)
+	while (i < env->piece_x)
 	{
 		if (!(env->piece[i] = (char*)ft_memalloc(sizeof(char) * env->piece_y)))
 			exit(1);
@@ -98,52 +121,37 @@ void	init_piece(t_env *env)
 	}
 }
 
-void	get_piece_size(t_env *env, char *line)
-{
-	int		i;
-	char	**p;
-
-	get_next_line(0, &line);
-	while (!ft_strstr(line, "Piece "))
-		get_next_line(0, &line);
-	i = ft_strlen(line);
-	line[i - 1] = '\0';
-	p = ft_strsplit(line, ' ');
-	env->piece_x = ft_atoi(p[1]);
-	env->piece_y = ft_atoi(p[2]);
-	dprintf(0, "%s\n", line);
-}
-
-void	get_piece(t_env *env, char *line)
+char	*get_piece(t_env *env, char *line)
 {
 	int		x;
 	int		y;
 
 	while (!ft_strstr(line, "Piece "))
 		get_next_line(0, &line);
-	dprintf(2, "%s\n", line);
+
 	y = 0;
-	while (y <= env->piece_y)
+	get_next_line(0, &line);	
+	dprintf(2, "hello  %s\n", line);
+	
+	while (y < env->piece_y)
 	{
+		dprintf(2, "here %s\n", line);
 		x = 0;
-		while (x <= env->piece_x)
+		while (x < env->piece_x)
 		{
+			dprintf(2, "x -> %d y -> %d\n", x, y);
 			env->piece[x][y] = line[x];
 			x++;
 		}
 		get_next_line(0, &line);
 		y++;
 	}
+	return (line);
 }
 
 void play()
 {
 	//...
-}
-
-void	init_env(t_env *env)
-{
-	env->player = 0;
 }
 
 void	debug_show_map(t_env *env)
@@ -152,8 +160,6 @@ void	debug_show_map(t_env *env)
 	int y;
 
 	y = 0;
-	x = 0;
-
 	while (y < env->map_y)
 	{
 		x = 0;
@@ -165,7 +171,12 @@ void	debug_show_map(t_env *env)
 		dprintf(2, "\n");
 		y++;
 	}
+}
 
+
+void	init_env(t_env *env)
+{
+	env->player = 0;
 }
 
 int		main(void)
@@ -179,20 +190,19 @@ int		main(void)
 	get_map_size(&env, line);
 	init_map(&env);
 	get_next_line(0, &line);
-	get_map(&env, line);
-    debug_show_map(&env);
-	// while (get_next_line(0, &line))
-	// {
-	// 	play();
-	// 	// get_map();
-	// }
+	line = get_map(&env, line);	
+	debug_show_map(&env);
 
-	//get_piece_size(&env, line);
-	//init_piece(&env);
-	//while (get_next_line(0, &line))
-	//{
-	//	get_map(&env, line);
-	//	get_piece(&env, line);
-	//}
+	line = get_piece_size(&env, line);
+	dprintf(2,"END \n");
+	
+	init_piece(&env);
+	dprintf(2,"END \n");	
+	
+	get_piece(&env, line);
+	//calculate_score(&env);
+	//put_piece(&env);
+	dprintf(2, "%d %d\n", env.pos_y, env.pos_x);	
+	dprintf(2, "%s %s\n", ft_itoa(env.pos_y), ft_itoa(env.pos_x));
 	return (0);
 }
