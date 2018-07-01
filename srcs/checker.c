@@ -61,34 +61,25 @@ void    check_block(t_env *env, int pos_x, int pos_y)
 			if (env->piece[x][y] == '*')
 			{
 				if (map_limit(env, pos_x + x, pos_y + y))
-				{	
-
-					// dprintf(2, "hellooooo %d    %d\n", env->map[pos_x + x][pos_y + y].sign, env->player);
+				{
 
 					if (env->map[pos_x + x][pos_y + y].sign == env->player)
-						touch++;		
-					
-					// dprintf(2, "hellooooo %c\n", env->map[pos_x + x][pos_y + y].sign);
-					
-					
+						touch++;
+
 					if (env->map[pos_x + x][pos_y + y].sign == env->enemi)
 						return;
-
-					// dprintf(2, "hellooooo %c\n", env->map[pos_x + x][pos_y + y].sign);
-		
 				}
 			}
 			x++;
 		}
 		y++;
 	}
-	
+
 	if (touch == 1)
 	{
-		dprintf(2, "win\n");
-
+		env->pos_x = pos_x;
+		env->pos_y = pos_y;
 	}
-	// touch == 1 ? (env->pos_x = pos_x) && (env->pos_y = pos_y) : 0;
 }
 void    put_piece(t_env *env)
 {
@@ -102,9 +93,11 @@ void    put_piece(t_env *env)
 		x = 0;
 		while (x < env->map_x)
 		{
+			dprintf(2, "%d ", x);
 			check_block(env, x, y);
 			x++;
 		}
+		dprintf(2, "\n");
 		y++;
 	}
 }
