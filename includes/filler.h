@@ -35,5 +35,7 @@ void                solver(t_env *env);
 void                check_score (t_env *env, int x, int y);
 void                calculate_score(t_env *env);
 void                put_piece(t_env *env);
+void								init_piece(t_env *env);
+void								init_map(t_env *env);
 
 #endif

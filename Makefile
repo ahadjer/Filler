@@ -8,7 +8,10 @@ FLAGS = #-Wall -Werror -Wextra
 INC = -I ./includes/ -I ./$(LIBFT_PATH)includes/
 
 SRCS_NAME = main.c \
-			checker.c
+			checker.c \
+			map.c \
+			piece.c \
+			parser.c
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(SRCS_NAME:.c=.o))

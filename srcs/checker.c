@@ -1,4 +1,3 @@
-
 #include "../includes/filler.h"
 
 int		map_limit(t_env *env, int x, int y)
@@ -60,15 +59,12 @@ void    check_block(t_env *env, int pos_x, int pos_y)
 		{
 			if (env->piece[x][y] == '*')
 			{
-				if (map_limit(env, pos_x + x, pos_y + y))
-				{
-
-					if (env->map[pos_x + x][pos_y + y].sign == env->player)
-						touch++;
-
-					if (env->map[pos_x + x][pos_y + y].sign == env->enemi)
-						return;
-				}
+				if (!map_limit(env, pos_x + x, pos_y + y))
+					return;
+				if (env->map[pos_x + x][pos_y + y].sign == env->player)
+					touch++;
+				if (env->map[pos_x + x][pos_y + y].sign == env->enemi)
+					return;
 			}
 			x++;
 		}
