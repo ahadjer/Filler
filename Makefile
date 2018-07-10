@@ -11,7 +11,7 @@ SRCS_NAME = main.c \
 			checker.c \
 			map.c \
 			piece.c \
-			parser.c
+			player.c
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(SRCS_NAME:.c=.o))

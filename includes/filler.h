@@ -22,7 +22,7 @@ typedef struct      s_env
     char            **piece;
     int             pos_x;
     int             pos_y;
-	int				best_score;
+		int							high_score;
 
 }                   t_env;
 
@@ -39,3 +39,5 @@ void								init_piece(t_env *env);
 void								init_map(t_env *env);
 
 #endif
+
+// map[strlen([piece_x])][strlen([piece_y])]

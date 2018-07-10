@@ -13,9 +13,9 @@
 #include "../includes/filler.h"
 #include <stdio.h>
 
-void play()
+void	init_env(t_env *env)
 {
-	//...
+	env->player = 0;
 }
 
 void	debug_show_map(t_env *env)
@@ -36,7 +36,6 @@ void	debug_show_map(t_env *env)
 		y++;
 	}
 }
-
 
 void	debug_show_piece(t_env *env)
 {
@@ -76,11 +75,6 @@ void	debug_show_score(t_env *env)
 	}
 }
 
-void	init_env(t_env *env)
-{
-	env->player = 0;
-}
-
 int		main(void)
 {
 	char	*line;
@@ -93,6 +87,7 @@ int		main(void)
 	init_map(&env);
 	while (get_next_line(0 ,&line))
 	{
+		env.high_score = -1;
 		line = get_map(&env, line);
 		line = get_piece_size(&env, line);
 		init_piece(&env);

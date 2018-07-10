@@ -1,5 +1,23 @@
 #include "../includes/filler.h"
 
+char	*get_map_size(t_env *env, char *line)
+{
+	int		i;
+	char	**w;
+
+	get_next_line(0, &line);
+	if (!ft_strstr(line, "Plateau"))
+		get_next_line(0, &line);
+	dprintf(2, "%s\n", line);
+	i = ft_strlen(line);
+	line[i - 1] = '\0';
+	w = ft_strsplit(line, ' ');
+	env->map_x = ft_atoi(w[2]);
+	env->map_y = ft_atoi(w[1]);
+	dprintf(2, "mapx: %d\nmapY %d\n", env->map_x, env->map_y);
+	return (line);
+}
+
 void	init_map(t_env *env)
 {
 	int		i;
@@ -36,23 +54,5 @@ char	*get_map(t_env *env, char *line)
 		y++;
 		get_next_line(0, &line);
 	}
-	return (line);
-}
-
-char	*get_map_size(t_env *env, char *line)
-{
-	int		i;
-	char	**w;
-
-	get_next_line(0, &line);
-	if (!ft_strstr(line, "Plateau"))
-		get_next_line(0, &line);
-	dprintf(2, "%s\n", line);
-	i = ft_strlen(line);
-	line[i - 1] = '\0';
-	w = ft_strsplit(line, ' ');
-	env->map_x = ft_atoi(w[2]);
-	env->map_y = ft_atoi(w[1]);
-	dprintf(2, "mapx: %d\nmapY %d\n", env->map_x, env->map_y);
 	return (line);
 }

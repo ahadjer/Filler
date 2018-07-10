@@ -39,20 +39,19 @@ char	*get_piece(t_env *env, char *line)
 	while (!ft_strstr(line, "Piece "))
 		get_next_line(0, &line);
 	y = 0;
-
 	while (y < env->piece_y)
 	{
 		get_next_line(0, &line);
-		dprintf(2, "new line youhou !\n");
+		dprintf(2, "r2\n");
 		x = 0;
 		while (x < env->piece_x)
 		{
-			dprintf(2, "new char youhou !\n");
+			dprintf(2, "c1\n");
 			env->piece[x][y] = line[x];
 			x++;
 		}
 		y++;
 	}
-	dprintf(2, "end youhou !\n");
+	dprintf(2, "end\n");
 	return (line);
 }
