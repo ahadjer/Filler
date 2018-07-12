@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahadjer <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ahadjer <ahadjer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 09:13:23 by ahadjer           #+#    #+#             */
-/*   Updated: 2017/03/20 09:13:24 by ahadjer          ###   ########.fr       */
+/*   Updated: 2018/07/12 18:27:19 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_itoa(int n)
 {

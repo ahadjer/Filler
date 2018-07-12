@@ -18,7 +18,6 @@ void calculate_score(t_env *env)
 
 	x = 0;
 	y = 0;
-	dprintf(2, "r1\n");
 	while (y < env->map_y)
 	{
 		x = 0;
@@ -48,8 +47,9 @@ void    check_block(t_env *env, int pos_x, int pos_y)
 	int     touch;
 	int			score;
 
-	x = 0 - env->piece_x;
-	y = 0 - env->piece_y;
+
+	x = 0;
+	y = 0;
 	score = 0;
 	touch = 0;
 	while(y < env->piece_y)
@@ -65,18 +65,20 @@ void    check_block(t_env *env, int pos_x, int pos_y)
 					touch++;
 				if (env->map[pos_x + x][pos_y + y].sign == env->enemi)
 					return;
-				if (env->map[x][y].f == '1')
+				if (env->map[pos_x + x][pos_y + y].f)
 					score++;
 			}
 			x++;
 		}
 		y++;
 	}
-	env->high_score = -1;
-	if (touch == 1 && score > env->high_score)
+	// dprintf(2, "score => %d\n", env->high_score);
+	if (touch == 1 && score >= env->high_score)
 	{
 		env->pos_x = pos_x;
 		env->pos_y = pos_y;
+		env->high_score = score;
+		// dprintf(2, "good pos x:%d  y:%d\n", env->pos_x, env->pos_y);
 	}
 }
 
@@ -85,18 +87,19 @@ void    put_piece(t_env *env)
 	int     x;
 	int     y;
 
-	x = 0;
-	y = 0;
+	dprintf(2, "pos before x:%d  y:%d\n", env->pos_x, env->pos_y);
+
+	y = 0 - env->piece_y;
 	while(y < env->map_y)
 	{
-		x = 0;
+		x = 0 - env->piece_x;
 		while (x < env->map_x)
 		{
-			dprintf(2, "%d ", x);
+			// dprintf(2, "%d ", x);
 			check_block(env, x, y);
 			x++;
 		}
-		dprintf(2, "\n");
+		// dprintf(2, "\n");
 		y++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahadjer <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ahadjer <ahadjer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 09:35:40 by ahadjer           #+#    #+#             */
-/*   Updated: 2017/03/20 09:35:41 by ahadjer          ###   ########.fr       */
+/*   Updated: 2018/07/12 22:58:28 by lchety           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strmap(const char *s, char (*f)(char));
 char				*ft_strmapi(const char *s, char (*f)(unsigned int, char));
-int					get_next_line(int const fd, char **line);
 int					ft_strequ(const char *s1, const char *s2);
 int					ft_strnequ(const char *s1, const char *s2, size_t n);
 char				*ft_strsub(const char *s, unsigned int start, size_t len);
@@ -165,5 +164,6 @@ char				*ft_lltoa_base(long long n);
 char				*ft_ulltoa_base(unsigned long long n, int b, int lowup);
 long				ft_round(double n, int precision);
 char				*ft_ldtoa(double n, int precision);
+int					get_next_line(int fd, char **line);
 
 #endif
